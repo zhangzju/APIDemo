@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/fsnotify/fsnotify"
+	"github.com/howeyc/fsnotify"
 	yaml "gopkg.in/yaml.v2"
 )
 
