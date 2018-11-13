@@ -61,6 +61,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	<-done
+	watcher.Close()
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
