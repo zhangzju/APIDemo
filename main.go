@@ -44,7 +44,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	done := make(chan bool)
 
 	go func() {
 		for {
@@ -53,6 +52,8 @@ func main() {
 				log.Println("event:", ev)
 			case err := <-watcher.Error:
 				log.Println("error:", err)
+			default：
+				log.Println("Watch on file")
 			}
 		}
 	}()
@@ -61,8 +62,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	<-done
-	watcher.Close()
+	defer watcher.Close()
+
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
