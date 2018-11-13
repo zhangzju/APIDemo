@@ -39,46 +39,27 @@ func main() {
 		return
 	}
 
-	watch, err := fsnotify.NewWatcher()
+	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	defer watch.Close()
-	err = watch.Add("./hot-reload.yaml")
-	if err != nil {
-		log.Fatal(err)
-	}
+	done := make(chan bool)
 
 	go func() {
 		for {
 			select {
-			case ev := <-watch.Events:
-				{
-					if ev.Op&fsnotify.Create == fsnotify.Create {
-						log.Println("创建文件 : ", ev.Name)
-					}
-					if ev.Op&fsnotify.Write == fsnotify.Write {
-						log.Println("写入文件 : ", ev.Name)
-					}
-					if ev.Op&fsnotify.Remove == fsnotify.Remove {
-						log.Println("删除文件 : ", ev.Name)
-					}
-					if ev.Op&fsnotify.Rename == fsnotify.Rename {
-						log.Println("重命名文件 : ", ev.Name)
-					}
-					if ev.Op&fsnotify.Chmod == fsnotify.Chmod {
-						log.Println("修改权限 : ", ev.Name)
-					}
-				}
-			case err := <-watch.Errors:
-				{
-					log.Println("error : ", err)
-					return
-				}
+			case ev := <-watcher.Event:
+				log.Println("event:", ev)
+			case err := <-watcher.Error:
+				log.Println("error:", err)
 			}
 		}
 	}()
+	err = watcher.Watch("./")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
