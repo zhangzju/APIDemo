@@ -44,7 +44,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-
 	go func() {
 		for {
 			select {
@@ -52,7 +51,7 @@ func main() {
 				log.Println("event:", ev)
 			case err := <-watcher.Error:
 				log.Println("error:", err)
-			default：
+			default:
 				log.Println("Watch on file")
 			}
 		}
