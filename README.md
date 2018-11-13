@@ -5,3 +5,6 @@
 ### 依赖
 
 Gin "github.com/gin-gonic/gin"
+gin-swagger  "github.com/swaggo/gin-swagger"
+fsnotify  "github.com/fsnotify/fsnotify"
+logrus "github.com/sirupsen/logrus"
