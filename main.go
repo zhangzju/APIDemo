@@ -53,6 +53,7 @@ func main() {
 				log.Println("error:", err)
 			default:
 				log.Println("Watch on file")
+				time.Sleep(5e7)
 			}
 		}
 	}()
