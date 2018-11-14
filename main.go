@@ -52,7 +52,6 @@ func main() {
 			case err := <-watcher.Error:
 				log.Println("error:", err)
 			default:
-				log.Println("Watch on file")
 				time.Sleep(5e7)
 			}
 		}
