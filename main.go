@@ -51,8 +51,6 @@ func main() {
 				log.Println("event:", ev)
 			case err := <-watcher.Error:
 				log.Println("error:", err)
-			default:
-				time.Sleep(5e7)
 			}
 		}
 	}()
