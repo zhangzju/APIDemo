@@ -5,7 +5,7 @@ import (
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
-	_ "./docs"
+	_ "APIDemo/handler/docs"
 )
 
 // @title ULB Online API
